@@ -107,12 +107,10 @@ Tip: Keep `z-index` lower than your navbar/hero overlays.
 
 ## 🧪 Visuals
 
-Add or update screenshots in `/img` and reference them here:
 
-![Hero preview](img/DSC09485.jpg)
+![Hero preview](img/Hero.jpg)
 ![Featured cake](img/Anas.jpg)
 
-Note: Replace with your own branded screenshots for best results.
 
 ## 🌍 Deployment
 
