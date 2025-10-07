@@ -1,0 +1,214 @@
+{
+  "cartStructure": {
+    "cartId": "string (unique identifier)",
+    "timestamp": "ISO 8601 timestamp",
+    "items": [
+      {
+        "id": "string (unique item identifier)",
+        "type": "string (cake type)",
+        "image": "string (image URL)",
+        "size": "string (Small/Medium/Large)",
+        "sizeMultiplier": "number (price multiplier)",
+        "flavor": "string (flavor name)",
+        "delivery": "string (delivery type)",
+        "deliveryFee": "number (delivery cost)",
+        "date": "string (delivery date)",
+        "time": "string (delivery time)",
+        "quantity": "number (item quantity)",
+        "basePrice": "number (base price)",
+        "price": "string (formatted total price)",
+        "orderNotes": "string (additional notes)",
+        "addedAt": "ISO 8601 timestamp"
+      }
+    ],
+    "totalItems": "number (total item count)",
+    "totalAmount": "number (total cart value)",
+    "currency": "string (currency code)",
+    "exportedAt": "ISO 8601 timestamp (when exported)"
+  },
+  
+  "sampleCartData": {
+    "cartId": "cart_1703764800000",
+    "timestamp": "2023-12-28T12:00:00.000Z",
+    "items": [
+      {
+        "id": "item_1703764801000",
+        "type": "Chocolate Birthday Cake",
+        "image": "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&h=600&fit=crop&crop=center",
+        "size": "Medium",
+        "sizeMultiplier": "2.0",
+        "flavor": "Dark Chocolate",
+        "delivery": "Home Delivery",
+        "deliveryFee": "10",
+        "date": "2023-12-30",
+        "time": "14:00",
+        "quantity": 1,
+        "basePrice": 80,
+        "price": "RM170",
+        "orderNotes": "Chocolate Birthday Cake - Medium size, Dark Chocolate flavor, Home Delivery",
+        "addedAt": "2023-12-28T12:00:01.000Z"
+      },
+      {
+        "id": "item_1703764802000",
+        "type": "Vanilla Wedding Cake",
+        "image": "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&h=600&fit=crop&crop=center",
+        "size": "Large",
+        "sizeMultiplier": "3.0",
+        "flavor": "Vanilla Bean",
+        "delivery": "Venue Delivery",
+        "deliveryFee": "25",
+        "date": "2024-01-15",
+        "time": "10:00",
+        "quantity": 1,
+        "basePrice": 150,
+        "price": "RM475",
+        "orderNotes": "Vanilla Wedding Cake - Large size, Vanilla Bean flavor, Venue Delivery",
+        "addedAt": "2023-12-28T12:00:02.000Z"
+      }
+    ],
+    "totalItems": 2,
+    "totalAmount": 645,
+    "currency": "RM",
+    "exportedAt": "2023-12-28T12:30:00.000Z"
+  },
+  
+  "priceCalculation": {
+    "formula": "(basePrice × sizeMultiplier × quantity) + deliveryFee",
+    "sizeMultipliers": {
+      "Small": 1.5,
+      "Medium": 2.0,
+      "Large": 3.0
+    },
+    "deliveryFees": {
+      "Self Pickup": 0,
+      "Home Delivery": 10,
+      "Venue Delivery": 25
+    }
+  },
+  
+  "availableOptions": {
+    "sizes": ["Small", "Medium", "Large"],
+    "flavors": [
+      "Vanilla",
+      "Chocolate",
+      "Strawberry",
+      "Red Velvet",
+      "Lemon",
+      "Coffee",
+      "Caramel",
+      "Coconut"
+    ],
+    "deliveryTypes": [
+      "Self Pickup",
+      "Home Delivery", 
+      "Venue Delivery"
+    ],
+    "categories": [
+      "birthday",
+      "wedding",
+      "event",
+      "custom"
+    ]
+  },
+  
+  "cakeProducts": [
+    {
+      "category": "birthday",
+      "type": "Chocolate Birthday Cake",
+      "basePrice": 80,
+      "image": "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&h=600&fit=crop&crop=center",
+      "description": "Rich chocolate cake perfect for celebrations"
+    },
+    {
+      "category": "birthday",
+      "type": "Vanilla Birthday Delight",
+      "basePrice": 70,
+      "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=600&fit=crop&crop=center",
+      "description": "Classic vanilla cake with smooth buttercream"
+    },
+    {
+      "category": "birthday",
+      "type": "Rainbow Birthday Cake",
+      "basePrice": 90,
+      "image": "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&h=600&fit=crop&crop=center",
+      "description": "Colorful layers of joy and happiness"
+    },
+    {
+      "category": "wedding",
+      "type": "Elegant Wedding Cake",
+      "basePrice": 150,
+      "image": "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&h=600&fit=crop&crop=center",
+      "description": "Multi-tiered masterpiece for your special day"
+    },
+    {
+      "category": "wedding",
+      "type": "Rose Garden Wedding",
+      "basePrice": 180,
+      "image": "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&h=600&fit=crop&crop=center",
+      "description": "Adorned with delicate sugar roses"
+    },
+    {
+      "category": "wedding",
+      "type": "Classic White Wedding",
+      "basePrice": 140,
+      "image": "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=600&fit=crop&crop=center",
+      "description": "Timeless elegance in pure white"
+    },
+    {
+      "category": "event",
+      "type": "Corporate Event Cake",
+      "basePrice": 120,
+      "image": "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=600&h=600&fit=crop&crop=center",
+      "description": "Professional and sophisticated for business events"
+    },
+    {
+      "category": "event",
+      "type": "Anniversary Celebration",
+      "basePrice": 100,
+      "image": "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=600&fit=crop&crop=center",
+      "description": "Commemorating years of love and happiness"
+    },
+    {
+      "category": "event",
+      "type": "Graduation Special",
+      "basePrice": 85,
+      "image": "https://images.unsplash.com/photo-1557925923-cd4648e211a0?w=600&h=600&fit=crop&crop=center",
+      "description": "Celebrating academic achievements"
+    },
+    {
+      "category": "custom",
+      "type": "Custom Design Cake",
+      "basePrice": 200,
+      "image": "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=600&h=600&fit=crop&crop=center",
+      "description": "Unique designs tailored to your vision"
+    },
+    {
+      "category": "custom",
+      "type": "Theme Party Cake",
+      "basePrice": 160,
+      "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&h=600&fit=crop&crop=center",
+      "description": "Custom themed cakes for special occasions"
+    },
+    {
+      "category": "custom",
+      "type": "Photo Cake Special",
+      "basePrice": 130,
+      "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=600&fit=crop&crop=center",
+      "description": "Edible photo prints on delicious cake"
+    }
+  ],
+  
+  "metadata": {
+    "version": "1.0",
+    "createdBy": "Aka Apricus Cake Business",
+    "createdAt": "2023-12-28T12:00:00.000Z",
+    "description": "JSON data structure for cart management and product catalog",
+    "notes": [
+      "All prices are in Malaysian Ringgit (RM)",
+      "Delivery dates must be at least 1 day in advance",
+      "Cart data is stored in localStorage for persistence",
+      "Export functionality creates downloadable JSON files",
+      "Size multipliers affect final pricing calculation"
+    ]
+  }
+}

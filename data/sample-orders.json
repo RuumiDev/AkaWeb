@@ -1,0 +1,278 @@
+{
+  "orders": [
+    {
+      "orderId": "AKA17037648010001",
+      "timestamp": "2025-09-28T12:00:00.000Z",
+      "status": "pending",
+      "customer": {
+        "name": "John Doe",
+        "phone": "+60123456789",
+        "email": "john.doe@email.com",
+        "address": "123 Cake Street, Kuala Lumpur"
+      },
+      "items": [
+        {
+          "id": "item_1703764801000",
+          "type": "Chocolate Birthday Cake",
+          "category": "birthday",
+          "image": "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&h=600&fit=crop&crop=center",
+          "size": "Medium",
+          "sizeMultiplier": 2.0,
+          "flavor": "Dark Chocolate",
+          "delivery": "Home Delivery",
+          "deliveryFee": 10,
+          "date": "2025-10-01",
+          "time": "14:00",
+          "quantity": 1,
+          "basePrice": 80,
+          "finalPrice": 170,
+          "orderNotes": "Happy Birthday message on top",
+          "addedAt": "2025-09-28T12:00:01.000Z"
+        }
+      ],
+      "totalItems": 1,
+      "totalAmount": 170,
+      "currency": "RM",
+      "paymentStatus": "pending",
+      "paymentMethod": null,
+      "whatsappSent": true,
+      "whatsappMessage": "🍰 *CAKE ORDER FROM AKA APRICUS* 🍰...",
+      "createdAt": "2025-09-28T12:00:00.000Z",
+      "updatedAt": "2025-09-28T12:00:00.000Z"
+    },
+    {
+      "orderId": "AKA17037648020002",
+      "timestamp": "2025-09-28T14:30:00.000Z",
+      "status": "confirmed",
+      "customer": {
+        "name": "Jane Smith",
+        "phone": "+60198765432",
+        "email": "jane.smith@email.com",
+        "address": "456 Wedding Ave, Petaling Jaya"
+      },
+      "items": [
+        {
+          "id": "item_1703764802000",
+          "type": "Elegant Wedding Cake",
+          "category": "wedding",
+          "image": "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&h=600&fit=crop&crop=center",
+          "size": "Large",
+          "sizeMultiplier": 3.0,
+          "flavor": "Vanilla Bean",
+          "delivery": "Venue Delivery",
+          "deliveryFee": 25,
+          "date": "2025-12-15",
+          "time": "10:00",
+          "quantity": 1,
+          "basePrice": 150,
+          "finalPrice": 475,
+          "orderNotes": "3-tier wedding cake with white roses",
+          "addedAt": "2025-09-28T14:30:01.000Z"
+        },
+        {
+          "id": "item_1703764803000",
+          "type": "Chocolate Birthday Cake",
+          "category": "birthday",
+          "image": "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&h=600&fit=crop&crop=center",
+          "size": "Small",
+          "sizeMultiplier": 1.5,
+          "flavor": "Milk Chocolate",
+          "delivery": "Venue Delivery",
+          "deliveryFee": 0,
+          "date": "2025-12-15",
+          "time": "10:00",
+          "quantity": 2,
+          "basePrice": 80,
+          "finalPrice": 240,
+          "orderNotes": "For cutting ceremony",
+          "addedAt": "2025-09-28T14:30:02.000Z"
+        }
+      ],
+      "totalItems": 3,
+      "totalAmount": 715,
+      "currency": "RM",
+      "paymentStatus": "paid",
+      "paymentMethod": "bank_transfer",
+      "whatsappSent": true,
+      "whatsappMessage": "🍰 *CAKE ORDER FROM AKA APRICUS* 🍰...",
+      "createdAt": "2025-09-28T14:30:00.000Z",
+      "updatedAt": "2025-09-28T15:45:00.000Z"
+    }
+  ],
+  
+  "orderStatuses": {
+    "pending": {
+      "label": "Pending Confirmation",
+      "description": "Order received, waiting for confirmation",
+      "color": "orange"
+    },
+    "confirmed": {
+      "label": "Confirmed",
+      "description": "Order confirmed, payment pending",
+      "color": "blue"
+    },
+    "paid": {
+      "label": "Paid",
+      "description": "Payment received, preparing order",
+      "color": "green"
+    },
+    "preparing": {
+      "label": "Preparing",
+      "description": "Cake is being prepared",
+      "color": "purple"
+    },
+    "ready": {
+      "label": "Ready",
+      "description": "Order ready for pickup/delivery",
+      "color": "teal"
+    },
+    "delivered": {
+      "label": "Delivered",
+      "description": "Order successfully delivered",
+      "color": "green"
+    },
+    "cancelled": {
+      "label": "Cancelled",
+      "description": "Order was cancelled",
+      "color": "red"
+    }
+  },
+
+  "paymentMethods": {
+    "bank_transfer": {
+      "label": "Bank Transfer",
+      "description": "Direct bank transfer",
+      "available": true
+    },
+    "online_banking": {
+      "label": "Online Banking",
+      "description": "FPX online banking",
+      "available": true
+    },
+    "ewallet": {
+      "label": "E-Wallet",
+      "description": "GrabPay, Touch 'n Go, etc.",
+      "available": true
+    },
+    "cash_on_delivery": {
+      "label": "Cash on Delivery",
+      "description": "Pay when order is delivered",
+      "available": false
+    },
+    "credit_card": {
+      "label": "Credit/Debit Card",
+      "description": "Visa, MasterCard",
+      "available": false
+    }
+  },
+
+  "deliveryOptions": {
+    "self_pickup": {
+      "label": "Self Pickup",
+      "fee": 0,
+      "description": "Pick up from our shop",
+      "estimatedTime": "Same day"
+    },
+    "home_delivery": {
+      "label": "Home Delivery",
+      "fee": 10,
+      "description": "Delivery to your address",
+      "estimatedTime": "1-2 hours",
+      "coverageArea": "Klang Valley"
+    },
+    "venue_delivery": {
+      "label": "Venue Delivery",
+      "fee": 25,
+      "description": "Delivery to event venue",
+      "estimatedTime": "Scheduled",
+      "coverageArea": "Klang Valley + surrounding areas"
+    }
+  },
+
+  "businessInfo": {
+    "name": "Aka Apricus Cake Shop",
+    "phone": "+60123456789",
+    "whatsapp": "+60123456789",
+    "email": "orders@akapricus.com",
+    "website": "www.akapricus.com",
+    "address": "123 Cake Street, Taman Desa, 58100 Kuala Lumpur",
+    "businessHours": {
+      "monday": "9:00 AM - 8:00 PM",
+      "tuesday": "9:00 AM - 8:00 PM",
+      "wednesday": "9:00 AM - 8:00 PM",
+      "thursday": "9:00 AM - 8:00 PM",
+      "friday": "9:00 AM - 8:00 PM",
+      "saturday": "9:00 AM - 9:00 PM",
+      "sunday": "10:00 AM - 7:00 PM"
+    },
+    "services": [
+      "Custom Cake Design",
+      "Wedding Cakes",
+      "Birthday Cakes",
+      "Corporate Event Cakes",
+      "Cupcakes & Desserts",
+      "Cake Delivery",
+      "Cake Consultation"
+    ],
+    "specialFeatures": [
+      "Same-day orders (subject to availability)",
+      "Custom photo printing on cakes",
+      "Sugar flower decorations",
+      "Gluten-free options available",
+      "Vegan cake options",
+      "Corporate bulk orders"
+    ]
+  },
+
+  "whatsappTemplates": {
+    "orderConfirmation": {
+      "template": "🍰 *ORDER CONFIRMATION* 🍰\\n\\nOrder ID: {orderId}\\nItems: {totalItems} cake(s)\\nTotal: *RM{totalAmount}*\\n\\nYour order has been received and is being processed.\\n\\nWe will contact you shortly for confirmation and payment details.\\n\\nThank you for choosing Aka Apricus! 🎂",
+      "variables": ["orderId", "totalItems", "totalAmount"]
+    },
+    "paymentReminder": {
+      "template": "💰 *PAYMENT REMINDER* 💰\\n\\nOrder ID: {orderId}\\nAmount Due: *RM{totalAmount}*\\nDue Date: {dueDate}\\n\\nPlease complete your payment to confirm your order.\\n\\nPayment methods available:\\n• Bank Transfer\\n• Online Banking (FPX)\\n• E-Wallet\\n\\nThank you! 🙏",
+      "variables": ["orderId", "totalAmount", "dueDate"]
+    },
+    "orderReady": {
+      "template": "✅ *ORDER READY* ✅\\n\\nOrder ID: {orderId}\\n\\nYour cake is ready for {deliveryType}!\\n\\n{deliveryDetails}\\n\\nThank you for choosing Aka Apricus! 🎂",
+      "variables": ["orderId", "deliveryType", "deliveryDetails"]
+    },
+    "generalInquiry": {
+      "template": "🍰 *INQUIRY - AKA APRICUS* 🍰\\n\\nHello! Thank you for your interest in our cakes.\\n\\nHow can we help you today?\\n\\n• Custom cake design\\n• Pricing information\\n• Delivery options\\n• Special dietary requirements\\n\\nPlease let us know your requirements! 🎂",
+      "variables": []
+    }
+  },
+
+  "statistics": {
+    "totalOrders": 2,
+    "pendingOrders": 1,
+    "completedOrders": 1,
+    "totalRevenue": 885,
+    "averageOrderValue": 442.5,
+    "mostPopularCake": "Chocolate Birthday Cake",
+    "mostPopularSize": "Medium",
+    "mostPopularFlavor": "Chocolate",
+    "mostPopularDelivery": "Home Delivery",
+    "lastUpdated": "2025-09-28T16:00:00.000Z"
+  },
+
+  "metadata": {
+    "version": "2.0",
+    "format": "JSON",
+    "encoding": "UTF-8",
+    "createdBy": "Aka Apricus Order Management System",
+    "createdAt": "2025-09-28T12:00:00.000Z",
+    "lastModified": "2025-09-28T16:00:00.000Z",
+    "description": "Complete order management data structure for Aka Apricus Cake Shop",
+    "schemaUrl": "https://akapricus.com/api/schema/orders.json",
+    "notes": [
+      "All prices are in Malaysian Ringgit (RM)",
+      "Timestamps are in ISO 8601 format (UTC)",
+      "Phone numbers include country code (+60 for Malaysia)",
+      "Order IDs follow format: AKA{timestamp}{random3digits}",
+      "WhatsApp messages use proper formatting with emojis",
+      "Delivery dates must be at least 24 hours in advance",
+      "File can be imported/exported for data backup"
+    ]
+  }
+}

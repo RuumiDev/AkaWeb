@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog - Kek Afrina</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/img/Afrina'sfavicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="js/catalogue.js" as="script">
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+    
+    <!-- Custom Styles for Lazy Loading -->
+    <style>
+        .lazy {
+            transition: filter 0.3s ease-in-out;
+        }
+        
+        .lazy.loaded {
+            filter: none !important;
+        }
+        
+        /* Enhanced loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .lazy:not(.loaded) {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'playfair': ['Playfair Display', 'serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'curly': ['Dancing Script', 'Brush Script MT', 'cursive'],
+                    },
+                    colors: {
+                        'brown': {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            200: '#eaddd7',
+                            300: '#e0cec7',
+                            400: '#d2bab0',
+                            500: '#bfa094',
+                            600: '#a18072',
+                            700: '#977669',
+                            800: '#8B4513',
+                            900: '#723a0f',
+                        },
+                        'gold': {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#DAA520',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#FFD700',
+                        },
+                        'cream': '#FFF8DC',
+                        'light-brown': '#F5F5DC',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease forwards',
+                        'ripple': 'ripple 0.6s linear',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="src/catalogue.css">
+</head>
+<body class="bg-gradient-to-br from-yellow-50 to-orange-100 min-h-screen">
+    <!-- Loader Animation -->
+    <div id="loader" class="fixed inset-0 bg-gradient-to-br from-yellow-50 to-orange-100 z-[9999] flex items-center justify-center transition-opacity duration-500">
+        <div class="text-center">
+            <!-- Animated Cake Icon -->
+            <div class="relative mb-6">
+                <div class="w-20 h-20 mx-auto relative">
+                    <!-- Cake Base -->
+                    <div class="absolute bottom-0 w-full h-8 bg-amber-600 rounded-lg animate-pulse"></div>
+                    <!-- Cake Middle -->
+                    <div class="absolute bottom-6 w-16 h-6 bg-amber-700 rounded-lg mx-auto left-2 animate-pulse" style="animation-delay: 0.2s;"></div>
+                    <!-- Cake Top -->
+                    <div class="absolute bottom-10 w-12 h-4 bg-amber-800 rounded-lg mx-auto left-4 animate-pulse" style="animation-delay: 0.4s;"></div>
+                    <!-- Candle -->
+                    <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-1 h-6 bg-yellow-400 rounded-full animate-bounce"></div>
+                    <!-- Flame -->
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-3 bg-orange-400 rounded-full animate-pulse flame-flicker"></div>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-64 bg-amber-200 rounded-full h-2 mb-4 overflow-hidden">
+                <div id="progress-bar" class="bg-amber-600 h-2 rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+            </div>
+            
+            <!-- Loading Text -->
+            <div class="space-y-2">
+                <h2 class="font-curly text-4xl bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent animate-bounce">Kek Afrina</h2>
+                <p class="font-inter text-sm text-amber-700 animate-fade-in" style="animation-delay: 0.5s;">Preparing something sweet...</p>
+                
+                <!-- Loading Dots -->
+                <div class="flex justify-center space-x-1 mt-4">
+                    <div class="w-2 h-2 bg-amber-600 rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+                    <div class="w-2 h-2 bg-amber-600 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                    <div class="w-2 h-2 bg-amber-600 rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 transition-all duration-300 shadow-lg" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300 group">
+                        <img src="img/Afrina'sfavicon.png" alt="Kek Afrina Logo" class="w-12 h-12 rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                        <span class="font-curly text-4xl bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent hover:from-yellow-400 hover:via-amber-500 hover:to-yellow-600 transition-all duration-300 group-hover:scale-105">Kek Afrina</span>
+                    </a>
+                </div>
+                
+                <ul class="hidden md:flex space-x-8" id="desktop-nav">
+                    <li>
+                        <a href="index.html" class="nav-link font-inter font-medium text-gray-700 hover:text-yellow-600 transition-all duration-300 relative group">
+                            Home
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="catalogue.html" class="nav-link font-inter font-medium text-yellow-600 relative group">
+                            Catalogue
+                            <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-gold-500 to-gold-900"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html#top-sellers" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Top Sellers
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="about.html" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            About Us
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contact.html" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Contact Us
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-search text-xl text-gray-700 hover:text-gold-500 cursor-pointer transition-all duration-300 hover:scale-110" id="search-icon"></i>
+                    <i class="fas fa-shopping-cart text-xl text-gray-700 hover:text-gold-500 cursor-pointer transition-all duration-300 hover:scale-110 relative" id="cart-icon"></i>
+                    <div class="md:hidden flex flex-col cursor-pointer" id="hamburger">
+                        <span class="w-6 h-0.5 bg-gray-700 mb-1 transition-all duration-300"></span>
+                        <span class="w-6 h-0.5 bg-gray-700 mb-1 transition-all duration-300"></span>
+                        <span class="w-6 h-0.5 bg-gray-700 transition-all duration-300"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-nav" class="md:hidden bg-white/98 backdrop-blur-md border-t border-brown-200 hidden">
+            <div class="px-4 py-4 space-y-4">
+                <a href="index.html" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+                <a href="catalogue.html" class="nav-link block text-gold-600 font-semibold">
+                    <i class="fas fa-th-large mr-2"></i>Catalogue
+                </a>
+                <a href="index.html#top-sellers" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-star mr-2"></i>Top Sellers
+                </a>
+                <a href="about.html" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-info-circle mr-2"></i>About Us
+                </a>
+                <a href="contact.html" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-envelope mr-2"></i>Contact Us
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="font-playfair text-5xl md:text-6xl font-bold text-brown-800 mb-4" data-aos="fade-up">
+                Our Catalogue
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Discover our exquisite collection of handcrafted cakes, perfect for every celebration
+            </p>
+            <div class="w-24 h-1 bg-gradient-to-r from-gold-500 to-gold-900 mx-auto mt-8 rounded" data-aos="fade-up" data-aos-delay="400"></div>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <section class="pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" data-aos="fade-up">
+                <div class="category-card bg-gold-500 text-white p-6 rounded-2xl cursor-pointer transition-all duration-300 transform hover:scale-105 active-category" data-category="birthday">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-birthday-cake text-2xl"></i>
+                        <span class="font-semibold">HARI LAHIR</span>
+                    </div>
+                </div>
+                
+                <div class="category-card bg-brown-600 hover:bg-brown-700 text-white p-6 rounded-2xl cursor-pointer transition-all duration-300 transform hover:scale-105" data-category="wedding">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-heart text-2xl"></i>
+                        <span class="font-semibold">PERKAHWINAN</span>
+                    </div>
+                </div>
+                
+                <div class="category-card bg-brown-600 hover:bg-brown-700 text-white p-6 rounded-2xl cursor-pointer transition-all duration-300 transform hover:scale-105" data-category="event">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-calendar-alt text-2xl"></i>
+                        <span class="font-semibold">MAJLIS</span>
+                    </div>
+                </div>
+                
+                <div class="category-card bg-brown-600 hover:bg-brown-700 text-white p-6 rounded-2xl cursor-pointer transition-all duration-300 transform hover:scale-105" data-category="custom">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-palette text-2xl"></i>
+                        <span class="font-semibold">TEMPAHAN KHAS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Filter & Search Section -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white/80 backdrop-blur-md rounded-3xl p-8 border border-brown-200 shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Price Range Slider -->
+                    <div class="lg:col-span-2">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-playfair text-xl font-semibold text-brown-800">
+                                <i class="fas fa-money-bill-wave mr-2 text-gold-500"></i>
+                                Julat Harga
+                            </h3>
+                            <div class="flex items-center space-x-2 text-sm text-brown-600">
+                                <span>RM</span>
+                                <span id="minPriceDisplay" class="font-semibold">0</span>
+                                <span>-</span>
+                                <span>RM</span>
+                                <span id="maxPriceDisplay" class="font-semibold">500</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Dual Range Slider -->
+                        <div class="relative mb-6">
+                            <div class="price-slider-track bg-gray-200 h-2 rounded-full relative">
+                                <div id="priceSliderRange" class="absolute h-2 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full"></div>
+                            </div>
+                            
+                            <div class="relative -mt-2">
+                                <input type="range" id="minPriceSlider" class="absolute w-full h-4 bg-transparent appearance-none cursor-pointer slider-thumb" 
+                                       min="0" max="500" value="0" step="5">
+                                <input type="range" id="maxPriceSlider" class="absolute w-full h-4 bg-transparent appearance-none cursor-pointer slider-thumb" 
+                                       min="0" max="500" value="500" step="5">
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Price Buttons -->
+                        <div class="flex flex-wrap gap-2">
+                            <button class="price-quick-btn px-4 py-2 text-sm bg-brown-100 hover:bg-gold-100 text-brown-700 hover:text-gold-700 rounded-full transition-all duration-300 transform hover:scale-105" 
+                                    data-min="0" data-max="50">Under RM50</button>
+                            <button class="price-quick-btn px-4 py-2 text-sm bg-brown-100 hover:bg-gold-100 text-brown-700 hover:text-gold-700 rounded-full transition-all duration-300 transform hover:scale-105" 
+                                    data-min="50" data-max="100">RM50 - RM100</button>
+                            <button class="price-quick-btn px-4 py-2 text-sm bg-brown-100 hover:bg-gold-100 text-brown-700 hover:text-gold-700 rounded-full transition-all duration-300 transform hover:scale-105" 
+                                    data-min="100" data-max="200">RM100 - RM200</button>
+                            <button class="price-quick-btn px-4 py-2 text-sm bg-brown-100 hover:bg-gold-100 text-brown-700 hover:text-gold-700 rounded-full transition-all duration-300 transform hover:scale-105" 
+                                    data-min="200" data-max="500">Above RM200</button>
+                            <button class="price-quick-btn px-4 py-2 text-sm bg-gold-500 hover:bg-gold-600 text-white rounded-full transition-all duration-300 transform hover:scale-105" 
+                                    data-min="0" data-max="500">All Prices</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Search & Filters -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block font-semibold text-brown-800 mb-2">
+                                <i class="fas fa-search mr-2 text-gold-500"></i>
+                                Cari Kek
+                            </label>
+                            <div class="relative">
+                                <input type="text" id="cakeSearch" placeholder="Cari mengikut nama atau perisa..." 
+                                       class="w-full px-4 py-3 pl-10 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gold-500 transition-colors duration-300">
+                                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block font-semibold text-brown-800 mb-2">
+                                <i class="fas fa-sort-amount-down mr-2 text-gold-500"></i>
+                                Susun Mengikut
+                            </label>
+                            <select id="sortSelect" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gold-500 transition-colors duration-300">
+                                <option value="default">Susunan Asal</option>
+                                <option value="price-low">Harga: Rendah ke Tinggi</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="name-asc">Name: A to Z</option>
+                                <option value="name-desc">Name: Z to A</option>
+                            </select>
+                        </div>
+                        
+                        <button id="resetFilters" class="w-full bg-gray-500 hover:bg-gray-600 text-white py-3 rounded-xl font-semibold transition-colors duration-300">
+                            <i class="fas fa-undo mr-2"></i>
+                            Reset Filters
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Filter Results Summary -->
+                <div id="filterSummary" class="mt-6 pt-6 border-t border-brown-200">
+                    <div class="flex items-center justify-between">
+                        <span class="text-brown-600">
+                            <i class="fas fa-filter mr-2"></i>
+                            <span id="resultsCount">0</span> cakes found
+                        </span>
+                        <div class="flex items-center space-x-4 text-sm text-brown-500">
+                            <span id="activeFilters"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="product-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-container">
+                <!-- Birthday Cakes -->
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="birthday" data-price="45" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center" alt="Kek Hari Lahir Klasik" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Kek Hari Lahir Klasik</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Kek hari lahir tradisional dengan span vanila, frosting mentega, dan hiasan berwarna-warni sesuai untuk sambutan usia mana-mana.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM45</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Kek Hari Lahir Klasik" data-base-price="45">
+                            Beli Sekarang
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="birthday" data-price="55" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=300&fit=crop&crop=center" alt="Kek Coklat Hari Lahir" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Kek Coklat Hari Lahir</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Kek hari lahir coklat yang kaya dengan koko premium, ganache coklat, dan hiasan coklat yang elegan.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM55</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Kek Coklat Hari Lahir" data-base-price="55">
+                            Beli Sekarang
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="birthday" data-price="60" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop&crop=center" alt="Kek Strawberi Hari Lahir" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Kek Strawberi Hari Lahir</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Kek hari lahir strawberi segar dengan buah strawberi asli, frosting krim ringan, dan hiasan buah-buahan.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM60</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Kek Strawberi Hari Lahir" data-base-price="60">
+                            Beli Sekarang
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="birthday" data-price="65" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=400&h=300&fit=crop&crop=center" alt="Kek Red Velvet Hari Lahir" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Red Velvet Birthday Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Classic red velvet cake with cream cheese frosting, perfect for special birthday celebrations.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM65</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Red Velvet Birthday Cake" data-base-price="65">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="birthday" data-price="70" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=400&h=300&fit=crop&crop=center" alt="Kek Funfetti Hari Lahir" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Funfetti Birthday Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Colorful funfetti cake with rainbow sprinkles, buttercream frosting, and festive decorations.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM70</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Funfetti Birthday Cake" data-base-price="70">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="birthday" data-price="75" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="relative overflow-hidden">
+                        <img data-src="/img/LemonCake.jpg" alt="Kek Lemon Hari Lahir" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Lemon Birthday Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Zesty lemon cake with tangy lemon curd filling and smooth lemon buttercream frosting.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM75</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Lemon Birthday Cake" data-base-price="75">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Wedding Cakes -->
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="wedding" data-price="200" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=400&h=300&fit=crop&crop=center" alt="Kek Perkahwinan Elegan" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Elegant Wedding Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Three-tier wedding cake with white fondant, sugar roses, and pearl decorations for your special day.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM200</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Elegant Wedding Cake" data-base-price="200">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="wedding" data-price="350" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center" alt="Kek Perkahwinan Diraja" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Royal Wedding Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Luxurious five-tier wedding cake with intricate royal icing, gold accents, and fresh flowers.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM350</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Royal Wedding Cake" data-base-price="350">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="wedding" data-price="275" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400&h=300&fit=crop&crop=center" alt="Kek Perkahwinan Taman" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Garden Wedding Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Rustic wedding cake with buttercream flowers, greenery, and natural decorations for outdoor ceremonies.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM250</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Garden Wedding Cake" data-base-price="250">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="wedding" data-price="300" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=300&fit=crop&crop=center" alt="Kek Perkahwinan Vintaj" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Vintage Wedding Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Classic vintage-style wedding cake with lace patterns, antique pearls, and romantic vintage roses.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM300</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Vintage Wedding Cake" data-base-price="300">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="wedding" data-price="280" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1582716401301-b2407dc7563d?w=400&h=300&fit=crop&crop=center" alt="Kek Perkahwinan Minimalis" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Minimalist Wedding Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Modern minimalist design with clean lines, elegant simplicity, and subtle geometric patterns.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM280</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Minimalist Wedding Cake" data-base-price="280">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="wedding" data-price="320" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="relative overflow-hidden">
+                        <img data-src="/img/FloralCake.jpg" alt="Kek Perkahwinan Bunga" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Floral Wedding Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Stunning floral wedding cake with cascading sugar flowers, delicate petals, and botanical elements.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM320</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Floral Wedding Cake" data-base-price="320">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event Cakes -->
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="event" data-price="120" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="relative overflow-hidden">
+                        <img data-src="/img/LavCake.jpg" alt="Kek Majlis Korporat" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Corporate Event Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Professional rectangular cake perfect for corporate celebrations, meetings, and business events.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM120</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Corporate Event Cake" data-base-price="120">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="event" data-price="100" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative overflow-hidden">
+                        <img data-src="/img/CustomCake.jpg" alt="Kek Graduasi" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Graduation Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Congratulatory cake with graduation cap decoration, diploma design, and school colors.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM85</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Graduation Cake" data-base-price="85">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="event" data-price="85" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="relative overflow-hidden">
+                        <img data-src="/img/CustomCake2.jpg" alt="Kek Ulang Tahun Perkahwinan" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Anniversary Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Romantic anniversary cake with heart decorations, elegant roses, and personalized message.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM95</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Anniversary Cake" data-base-price="95">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="event" data-price="110" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="relative overflow-hidden">
+                        <img data-src="/img/scenicCake.jpg" alt="Kek Persaraan" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Retirement Celebration Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Elegant retirement cake with career-themed decorations, congratulatory messages, and gold accents.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM110</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Retirement Celebration Cake" data-base-price="110">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="event" data-price="90" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="relative overflow-hidden">
+                        <img data-src="/img/cupCake.jpg" alt="Kek Baby Shower" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Baby Shower Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Adorable baby shower cake with cute baby decorations, pastel colors, and gender reveal options.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM90</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Baby Shower Cake" data-base-price="90">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="event" data-price="105" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=400&h=300&fit=crop&crop=center" alt="Kek Rumah Baru" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Housewarming Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Welcome home cake with house-themed decorations, keys, and "Home Sweet Home" message.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM105</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Housewarming Cake" data-base-price="105">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom Cakes -->
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="custom" data-price="200" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=400&h=300&fit=crop&crop=center" alt="Kek Reka Bentuk Tempahan" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Custom Design Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Fully customizable cake designed according to your vision, theme, and specific requirements.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM100+</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Custom Design Cake" data-base-price="100">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="custom" data-price="160" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=400&h=300&fit=crop&crop=center" alt="Kek Watak Kartun" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Character Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">3D character cake featuring your favorite cartoon, superhero, or movie character with intricate details.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM150+</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Character Cake" data-base-price="150">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="custom" data-price="130" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="relative overflow-hidden">
+                        <img data-src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400&h=300&fit=crop&crop=center" alt="Kek Gambar" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300 lazy" loading="lazy">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Photo Print Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Personalized cake with edible photo printing, perfect for memorable occasions and special memories.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM80+</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Photo Print Cake" data-base-price="80">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="custom" data-price="180" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400&h=300&fit=crop&crop=center" alt="Kek Bertingkat Tempahan" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Multi-Tiered Custom Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Elaborate multi-tier custom cake with multiple flavors, intricate designs, and premium decorations.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM180+</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Multi-Tiered Custom Cake" data-base-price="180">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="custom" data-price="150" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center" alt="Kek Ukiran" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">3D Sculpted Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Amazing 3D sculpted cake shaped like objects, animals, or any design you can imagine.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM150+</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="3D Sculpted Cake" data-base-price="150">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-item group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2" data-category="custom" data-price="140" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop&crop=center" alt="Kek Tanpa Gluten Tempahan" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <h3 class="product-title font-playfair text-xl font-semibold text-brown-800">Gluten-Free Custom Cake</h3>
+                        <p class="product-description text-gray-600 text-sm leading-relaxed">Delicious gluten-free custom cake with special dietary requirements, maintaining great taste and quality.</p>
+                        <div class="product-price text-2xl font-bold text-green-500">RM140+</div>
+                        <button class="buy-now-btn w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1" data-cake-type="Gluten-Free Custom Cake" data-base-price="140">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Cake Order Modal -->
+    <div id="customOrderModal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="relative">
+                <!-- Close Button -->
+                <button id="closeModal" class="absolute top-4 right-4 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-300 z-10">
+                    <i class="fas fa-times text-gray-600"></i>
+                </button>
+                
+                <!-- Modal Content -->
+                <div class="p-8">
+                    <!-- Cake Image and Name -->
+                    <div class="text-center mb-8">
+                        <img id="modalCakeImage" src="" alt="" class="w-32 h-32 object-cover rounded-2xl mx-auto mb-4 shadow-lg">
+                        <h2 id="modalCakeName" class="font-playfair text-3xl font-bold text-brown-800 mb-2"></h2>
+                        <p id="modalCakeType" class="text-gray-600">Cake type</p>
+                    </div>
+                    
+                    <!-- Price Display -->
+                    <div class="text-center mb-8">
+                        <div id="modalPrice" class="text-4xl font-bold text-green-500">RM250</div>
+                    </div>
+                    
+                    <!-- Customization Form -->
+                    <form id="customOrderForm" class="space-y-6">
+                        <!-- Size Selection -->
+                        <div>
+                            <label class="block text-brown-800 font-semibold mb-3">Saiz & Tinggi Kek</label>
+                            
+                            <!-- Tall Cake Options -->
+                            <div class="mb-6">
+                                <h4 class="text-sm font-semibold text-amber-700 mb-3">🧁 Kek Tinggi</h4>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <label class="size-option cursor-pointer">
+                                        <input type="radio" name="size" value="5inch-tall" data-multiplier="1.2" class="sr-only">
+                                        <div class="size-card p-3 border-2 border-gray-200 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                            <div class="text-sm font-semibold text-gray-700">5"</div>
+                                            <div class="text-xs text-gray-500">5"(d) × 5"(h)</div>
+                                        </div>
+                                    </label>
+                                    <label class="size-option cursor-pointer">
+                                        <input type="radio" name="size" value="6inch-tall" data-multiplier="1.5" class="sr-only" checked>
+                                        <div class="size-card p-3 border-2 border-gold-500 bg-gold-50 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                            <div class="text-sm font-semibold text-gray-700">6"</div>
+                                            <div class="text-xs text-gray-500">6"(d) × 6"(h)</div>
+                                        </div>
+                                    </label>
+                                    <label class="size-option cursor-pointer">
+                                        <input type="radio" name="size" value="7inch-tall" data-multiplier="1.8" class="sr-only">
+                                        <div class="size-card p-3 border-2 border-gray-200 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                            <div class="text-sm font-semibold text-gray-700">7"</div>
+                                            <div class="text-xs text-gray-500">7"(d) × 7"(h)</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Standard Height Options -->
+                            <div>
+                                <h4 class="text-sm font-semibold text-amber-700 mb-3">🎂 Tinggi Standard</h4>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <label class="size-option cursor-pointer">
+                                        <input type="radio" name="size" value="5inch-standard" data-multiplier="1" class="sr-only">
+                                        <div class="size-card p-3 border-2 border-gray-200 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                            <div class="text-sm font-semibold text-gray-700">5"</div>
+                                            <div class="text-xs text-gray-500">5"(d) × 3.5"(h)</div>
+                                        </div>
+                                    </label>
+                                    <label class="size-option cursor-pointer">
+                                        <input type="radio" name="size" value="6inch-standard" data-multiplier="1.3" class="sr-only">
+                                        <div class="size-card p-3 border-2 border-gray-200 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                            <div class="text-sm font-semibold text-gray-700">6"</div>
+                                            <div class="text-xs text-gray-500">6"(d) × 4"(h)</div>
+                                        </div>
+                                    </label>
+                                    <label class="size-option cursor-pointer">
+                                        <input type="radio" name="size" value="7inch-standard" data-multiplier="1.6" class="sr-only">
+                                        <div class="size-card p-3 border-2 border-gray-200 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                            <div class="text-sm font-semibold text-gray-700">7"</div>
+                                            <div class="text-xs text-gray-500">7"(d) × 4.5"(h)</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Custom Size Note -->
+                            <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                                <p class="text-xs text-amber-800">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    <strong>Nota:</strong> Kek boleh request lebih besar as custom. Sila contact WhatsApp untuk pertanyaan lebih lanjut.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Date Selection -->
+                        <div>
+                            <label class="block text-brown-800 font-semibold mb-3">Date</label>
+                            <input type="date" name="date" id="deliveryDate" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gold-500 transition-colors duration-300" required>
+                        </div>
+                        
+                        <!-- Flavor Selection -->
+                        <div>
+                            <label class="block text-brown-800 font-semibold mb-3">Flavor</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label class="flavor-option cursor-pointer">
+                                    <input type="radio" name="flavor" value="vanilla" class="sr-only" checked>
+                                    <div class="flavor-card p-4 border-2 border-gold-500 bg-gold-50 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                        <div class="text-sm font-semibold text-gray-700">Vanilla</div>
+                                    </div>
+                                </label>
+                                <label class="flavor-option cursor-pointer">
+                                    <input type="radio" name="flavor" value="chocolate" class="sr-only">
+                                    <div class="flavor-card p-4 border-2 border-gray-200 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                        <div class="text-sm font-semibold text-gray-700">Chocolate</div>
+                                    </div>
+                                </label>
+                                <label class="flavor-option cursor-pointer">
+                                    <input type="radio" name="flavor" value="strawberry" class="sr-only">
+                                    <div class="flavor-card p-4 border-2 border-gray-200 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                        <div class="text-sm font-semibold text-gray-700">Strawberry</div>
+                                    </div>
+                                </label>
+                                <label class="flavor-option cursor-pointer">
+                                    <input type="radio" name="flavor" value="red-velvet" class="sr-only">
+                                    <div class="flavor-card p-4 border-2 border-gray-200 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                        <div class="text-sm font-semibold text-gray-700">Red Velvet</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Time Selection -->
+                        <div>
+                            <label class="block text-brown-800 font-semibold mb-3">Time</label>
+                            <select name="time" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gold-500 transition-colors duration-300" required>
+                                <option value="">Select Time</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Delivery Options -->
+                        <div>
+                            <label class="block text-brown-800 font-semibold mb-3">Delivery Option</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label class="delivery-option cursor-pointer">
+                                    <input type="radio" name="delivery" value="delivery" data-fee="10" class="sr-only" checked>
+                                    <div class="delivery-card p-4 border-2 border-gold-500 bg-gold-50 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                        <div class="text-sm font-semibold text-gray-700">DELIVERY</div>
+                                        <div class="text-xs text-gray-500">+RM10</div>
+                                    </div>
+                                </label>
+                                <label class="delivery-option cursor-pointer">
+                                    <input type="radio" name="delivery" value="pickup" data-fee="0" class="sr-only">
+                                    <div class="delivery-card p-4 border-2 border-gray-200 rounded-xl text-center hover:border-gold-500 transition-colors duration-300">
+                                        <div class="text-sm font-semibold text-gray-700">PICK-UP</div>
+                                        <div class="text-xs text-gray-500">Free</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Cake Writing - Required Field -->
+                        <div>
+                            <label class="block text-brown-800 font-semibold mb-3">
+                                What to write on the cake <span class="text-red-500">*</span>
+                            </label>
+                            <textarea name="cakeWriting" id="cakeWriting" placeholder="Sila tulis apa yang anda mahu tertulis di atas kek (contoh: Happy Birthday Sarah, Congratulations, dll)" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gold-500 transition-colors duration-300 min-h-[80px] resize-none" maxlength="100" required></textarea>
+                            <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
+                                <span>Required - What should we write on your cake?</span>
+                                <span id="cakeWritingCount">0/100</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Special Requests / Notes -->
+                        <div>
+                            <label class="block text-brown-800 font-semibold mb-3">Special Requests (Optional)</label>
+                            <textarea name="notes" id="specialNotes" placeholder="Sebarang permintaan khas lain, hiasan tempahan, pantang larang makanan, atau keperluan spesifik..." class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gold-500 transition-colors duration-300 min-h-[100px] resize-none" maxlength="500"></textarea>
+                            <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
+                                <span>Optional but helpful for customizations</span>
+                                <span id="notesCount">0/500</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Quantity -->
+                        <div class="flex items-center justify-between bg-gray-50 p-4 rounded-xl">
+                            <span class="text-brown-800 font-semibold">Quantity</span>
+                            <div class="flex items-center space-x-4">
+                                <button type="button" id="decreaseQty" class="w-10 h-10 bg-brown-600 hover:bg-brown-700 text-white rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span id="quantity" class="text-xl font-bold text-brown-800 min-w-[2rem] text-center">1</span>
+                                <button type="button" id="increaseQty" class="w-10 h-10 bg-brown-600 hover:bg-brown-700 text-white rounded-full flex items-center justify-center transition-colors duration-300">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Place Order Button -->
+                        <button type="submit" class="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105">
+                            PLACE ORDER
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div class="text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start space-x-4 mb-6">
+                        <a href="index.html" class="flex items-center space-x-4 hover:opacity-80 transition-opacity duration-300 group">
+                            <img src="img/Afrina'sfavicon.png" alt="Kek Afrina Logo" class="w-16 h-16 rounded-full shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                            <div>
+                                <h3 class="font-curly text-4xl bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent group-hover:scale-105 transition-all duration-300">Kek Afrina</h3>
+                                <p class="text-gray-400 italic text-sm font-inter tracking-wider">SEDAP MEMIKAT</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="font-playfair text-xl font-semibold text-gold-500 mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Home</a></li>
+                        <li><a href="catalogue.html" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Catalogue</a></li>
+                        <li><a href="index.html#about" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">About Us</a></li>
+                        <li><a href="index.html#contact" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="font-playfair text-xl font-semibold text-gold-500 mb-4">Follow Us</h4>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-facebook-f text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-instagram text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-twitter text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-youtube text-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 Kek Afrina. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-gold-500 to-gold-900 hover:from-brown-800 hover:to-brown-700 text-white rounded-full opacity-0 invisible transition-all duration-300 hover:-translate-y-1 z-50" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Catalogue JavaScript -->
+    <script src="js/catalogue.js" defer></script>
+</body>
+</html>

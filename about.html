@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - Kek Afrina</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/img/Afrina'sfavicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'playfair': ['Playfair Display', 'serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'curly': ['Dancing Script', 'Brush Script MT', 'cursive'],
+                    },
+                    colors: {
+                        'brown': {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            200: '#eaddd7',
+                            300: '#e0cec7',
+                            400: '#d2bab0',
+                            500: '#bfa094',
+                            600: '#a18072',
+                            700: '#977669',
+                            800: '#8B4513',
+                            900: '#723a0f',
+                        },
+                        'gold': {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#DAA520',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease-out',
+                        'fadeInLeft': 'fadeInLeft 0.8s ease-out',
+                        'fadeInRight': 'fadeInRight 0.8s ease-out',
+                        'scaleIn': 'scaleIn 0.5s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        fadeInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        fadeInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body class="font-inter bg-gradient-to-br from-brown-50 to-gold-50">
+
+    <!-- Loader Animation -->
+    <div id="loader" class="fixed inset-0 bg-gradient-to-br from-yellow-50 to-orange-100 z-[9999] flex items-center justify-center transition-opacity duration-500">
+        <div class="text-center">
+            <!-- Animated Cake Icon -->
+            <div class="relative mb-6">
+                <div class="w-20 h-20 mx-auto relative">
+                    <!-- Cake Base -->
+                    <div class="absolute bottom-0 w-full h-8 bg-amber-600 rounded-lg animate-pulse"></div>
+                    <!-- Cake Middle -->
+                    <div class="absolute bottom-6 w-16 h-6 bg-amber-700 rounded-lg mx-auto left-2 animate-pulse" style="animation-delay: 0.2s;"></div>
+                    <!-- Cake Top -->
+                    <div class="absolute bottom-10 w-12 h-4 bg-amber-800 rounded-lg mx-auto left-4 animate-pulse" style="animation-delay: 0.4s;"></div>
+                    <!-- Candle -->
+                    <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-1 h-6 bg-yellow-400 rounded-full animate-bounce"></div>
+                    <!-- Flame -->
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-3 bg-orange-400 rounded-full animate-pulse flame-flicker"></div>
+                </div>
+            </div>
+            
+            <!-- Loading Text -->
+            <div class="space-y-2">
+                <h3 class="font-curly text-2xl text-amber-800 animate-bounce">Kek Afrina</h3>
+                <p class="font-inter text-sm text-amber-700 animate-fade-in" style="animation-delay: 0.5s;">Loading about us...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 transition-all duration-300 shadow-lg" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300 group">
+                        <img src="/img/Afrina'sfavicon.png" alt="Kek Afrina Logo" class="w-12 h-12 rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                        <span class="font-curly text-4xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent hover:from-yellow-400 hover:via-amber-500 hover:to-yellow-600 transition-all duration-300 group-hover:scale-105">Kek Afrina</span>
+                    </a>
+                </div>
+                
+                <ul class="hidden md:flex space-x-8" id="desktop-nav">
+                    <li>
+                        <a href="index.html" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Home
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="catalogue.html" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Catalogue
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html#top-sellers" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Top Sellers
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="about.html" class="nav-link font-inter font-medium text-gold-500 transition-all duration-300 relative group">
+                            About Us
+                            <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-gold-500 to-gold-900"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contact.html" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Contact Us
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-search text-xl text-gray-700 hover:text-gold-500 cursor-pointer transition-all duration-300 hover:scale-110" id="search-icon"></i>
+                    <a href="checkout.html">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700 hover:text-gold-500 cursor-pointer transition-all duration-300 hover:scale-110 relative" id="cart-icon"></i>
+                    </a>
+                    <div class="md:hidden flex flex-col cursor-pointer" id="hamburger">
+                        <span class="w-6 h-0.5 bg-gray-700 mb-1 transition-all duration-300"></span>
+                        <span class="w-6 h-0.5 bg-gray-700 mb-1 transition-all duration-300"></span>
+                        <span class="w-6 h-0.5 bg-gray-700 transition-all duration-300"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-nav" class="md:hidden bg-white/98 backdrop-blur-md border-t border-brown-200 hidden">
+            <div class="px-4 py-4 space-y-4">
+                <a href="index.html" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+                <a href="catalogue.html" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-th-large mr-2"></i>Catalogue
+                </a>
+                <a href="index.html#top-sellers" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-star mr-2"></i>Top Sellers
+                </a>
+                <a href="about.html" class="nav-link block text-gold-600 font-semibold">
+                    <i class="fas fa-info-circle mr-2"></i>About Us
+                </a>
+                <a href="contact.html" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-envelope mr-2"></i>Contact Us
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-20 sm:pt-24 pb-12 sm:pb-20 bg-gradient-to-br from-brown-100 to-gold-100 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1920&h=1080&fit=crop&crop=center" alt="Background" class="w-full h-full object-cover">
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center" data-aos="fade-up">
+                <h1 class="font-playfair text-4xl sm:text-5xl md:text-7xl font-bold text-brown-800 mb-4 sm:mb-6">
+                    About Us
+                </h1>
+                <div class="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-900 mx-auto mb-8 rounded-full"></div>
+                <p class="font-inter text-xl text-brown-600 max-w-3xl mx-auto leading-relaxed">
+                    Discover the sweet story behind Kek Afrina, where passion meets perfection in every creation
+                </p>
+            </div>
+        </div>
+        
+        <!-- Decorative Elements -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-gold-200 rounded-full opacity-20 animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-32 h-32 bg-brown-200 rounded-full opacity-20 animate-float" style="animation-delay: -2s;"></div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-12 sm:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-16 items-center">
+                <!-- Story Content -->
+                <div data-aos="fade-right">
+                    <div class="mb-8">
+                        <h2 class="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-brown-800 mb-4 sm:mb-6">
+                            Kisah Kami
+                        </h2>
+                        <div class="w-20 h-1 bg-gradient-to-r from-gold-500 to-gold-900 rounded-full"></div>
+                    </div>
+                    
+                    <div class="space-y-6 text-gray-700 leading-relaxed">
+                        <p class="text-lg">
+                            <strong class="text-brown-800">Selamat datang ke Kek Afrina</strong>, kami telah mula beroperasi sejak tahun <strong class="text-gold-600">2011</strong>, perjalanan kami bermula dengan hasrat untuk menghasilkan kek yang sedap serta cantik sesuai dengan kehendak pelanggan.
+                        </p>
+                        
+                        <p class="text-lg">
+                            Sepanjang tempoh ini, kami telah menambah baik kemahiran dalam menyediakan kek-kek bagi setiap acara keramaian, korporat serta acara kecil kecilan.
+                        </p>
+                        
+                        <p class="text-lg">
+                            <strong class="text-brown-800">Kini, Kek Afrina menjadi lambang komitmen kami</strong> dalam menyajikan ciptaan yang lazat dan berkualiti tinggi. Jom sama-sama sertailah kami dalam meraikan seni pembuatan kek serta kegembiraan yang dibawanya ke setiap acara.
+                        </p>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 gap-8 mt-12">
+                        <div class="text-center">
+                            <div class="font-playfair text-4xl font-bold text-gold-600 mb-2">14+</div>
+                            <div class="text-brown-700 font-medium">Tahun Pengalaman</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-playfair text-4xl font-bold text-gold-600 mb-2">1000+</div>
+                            <div class="text-brown-700 font-medium">Pelanggan Berpuas Hati</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image Gallery -->
+                <div data-aos="fade-left" class="grid grid-cols-2 gap-6">
+                    <div class="space-y-6">
+                        <div class="overflow-hidden rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                            <img src="/img/Brownies.jpg" alt="Proses Membuat Kek" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="overflow-hidden rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                            <img src="/img/abt/IrufanCake.JPG" alt="Bengkel Kami" class="w-full h-48 object-cover">
+                        </div>
+                    </div>
+                    <div class="space-y-6 pt-12">
+                            <div class="overflow-hidden rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                                <img src="/img/abt/ccCake.JPG" alt="Reka Bentuk Kek Tempahan" class="w-full h-48 object-cover">
+                        </div>
+                        <div class="overflow-hidden rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                            <img src="/img/abt/sprinklingCake.jpg" alt="Kerja Berpasukan" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-20 bg-gradient-to-br from-brown-50 to-gold-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-brown-800 mb-6">
+                    Nilai-Nilai Kami
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-gold-500 to-gold-900 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Quality -->
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                        <i class="fas fa-star text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-bold text-brown-800 mb-4">Kualiti Terbaik</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Kami menggunakan bahan-bahan pilihan dan teknik terkini untuk memastikan setiap kek yang dihasilkan mencapai standard kualiti yang tinggi.
+                    </p>
+                </div>
+                
+                <!-- Creativity -->
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-gradient-to-br from-brown-600 to-brown-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                        <i class="fas fa-palette text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-bold text-brown-800 mb-4">Kreativiti</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Setiap kek adalah kanvas untuk kreativiti kami. Kami sentiasa berinovasi untuk mencipta design yang unik dan menarik.
+                    </p>
+                </div>
+                
+                <!-- Service -->
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-gold-500 to-brown-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                        <i class="fas fa-heart text-3xl text-white"></i>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-bold text-brown-800 mb-4">Perkhidmatan Mesra</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Kepuasan pelanggan adalah keutamaan kami. Kami komited memberikan perkhidmatan yang tulus dan profesional.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-gradient-to-r from-brown-800 to-brown-900 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <img src="https://via.placeholder.com/1920x600/8B4513/FFFFFF?text=CTA+Background" alt="Background" class="w-full h-full object-cover">
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div data-aos="zoom-in">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-white mb-6">
+                    Mari Bercerita Tentang Kek Impian Anda
+                </h2>
+                <p class="text-xl text-brown-100 mb-8 max-w-3xl mx-auto">
+                    Hubungi kami hari ini dan biarkan kami menjadikan acara anda lebih istimewa dengan kek yang direka khas untuk anda.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="catalogue.html" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-brown-800 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl">
+                        Lihat Katalog Kami
+                    </a>
+                    <a href="contact.html" class="border-2 border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-brown-800 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105">
+                        Hubungi Kami
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div class="text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start space-x-4 mb-6">
+                        <a href="index.html" class="flex items-center space-x-4 hover:opacity-80 transition-opacity duration-300 group">
+                            <img src="/img/Afrina'sfavicon.png" alt="Kek Afrina Logo" class="w-16 h-16 rounded-full shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                            <div>
+                                <h3 class="font-curly text-3xl font-bold bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent">Kek Afrina</h3>
+                                <p class="text-gray-400 italic text-sm font-inter tracking-wider">RASA YANG MENAWAN</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="font-playfair text-xl font-semibold text-gold-500 mb-4">Pautan Pantas</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Laman Utama</a></li>
+                        <li><a href="catalogue.html" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Catalogue</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="font-playfair text-xl font-semibold text-gold-500 mb-4">Ikuti Kami</h4>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-facebook-f text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-instagram text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-twitter text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-youtube text-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 Kek Afrina. Semua hak terpelihara.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white rounded-full shadow-2xl opacity-0 invisible transition-all duration-300 transform hover:scale-110 z-40">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Loader Management for About Page
+        function initLoader() {
+            const loader = document.getElementById('loader');
+            
+            // Minimum loading time for smooth experience
+            const minLoadTime = 800;
+            const startTime = Date.now();
+            
+            function hideLoader() {
+                const elapsedTime = Date.now() - startTime;
+                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
+                
+                setTimeout(() => {
+                    if (loader) {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            document.body.classList.add('loaded');
+                        }, 500);
+                    }
+                }, remainingTime);
+            }
+            
+            // Hide loader when everything is ready
+            if (document.readyState === 'complete') {
+                hideLoader();
+            } else {
+                window.addEventListener('load', hideLoader);
+            }
+        }
+        
+        // Initialize loader
+        initLoader();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+/* Custom styles to complement Tailwind CSS */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loader Animations */
+@keyframes flame-flicker {
+    0%, 100% { 
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    50% { 
+        transform: translateX(-50%) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.flame-flicker {
+    animation: flame-flicker 0.5s ease-in-out infinite;
+}
+
+.animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+/* Hide loader when page is loaded */
+body.loaded #loader {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Enhanced Hero Section Styles */
+#home {
+    background-attachment: fixed;
+}
+
+/* Parallax effect for hero background */
+@media (min-width: 768px) {
+    #home .absolute.inset-0 {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center center;
+    }
+}
+
+/* Enhanced text shadows for better readability */
+.drop-shadow-2xl {
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+}
+
+/* Custom gradient animation */
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Enhanced floating animation */
+@keyframes enhanced-float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+    66% {
+        transform: translateY(-5px) rotate(-3deg);
+    }
+}
+
+.animate-enhanced-float {
+    animation: enhanced-float 4s ease-in-out infinite;
+}
+
+/* Glassmorphism effects */
+.backdrop-blur-md {
+    backdrop-filter: blur(12px);
+}
+
+/* Button hover effects */
+.group:hover .group-hover\:animate-bounce {
+    animation: bounce 1s infinite;
+}
+
+/* Hamburger menu animation */
+#hamburger span {
+    transform-origin: center;
+    transition: all 0.3s ease;
+}
+
+#hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+#hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+#hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Custom animations and effects */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Custom ripple effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+/* Navbar scrolled state */
+.navbar-scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Mobile menu animations */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Mobile menu */
+#nav-menu.active {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    padding: 2rem 0;
+    gap: 1rem;
+    z-index: 40;
+}
+
+/* Back to top button visibility */
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Cart badge */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Additional custom styles for enhanced interactivity */
+
+/* Smooth page transitions */
+body {
+    transition: opacity 0.5s ease;
+}
+
+/* Enhanced button hover effects */
+.btn-hover-gold {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-hover-gold::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-hover-gold:hover::before {
+    left: 100%;
+}
+
+/* Notification styles */
+.notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 3000;
+    animation: slideInRight 0.3s ease;
+    max-width: 300px;
+    font-weight: 500;
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #dc3545, #e55353);
+    color: white;
+}
+
+.notification.info {
+    background: linear-gradient(135deg, #17a2b8, #3498db);
+    color: white;
+}
+
+.notification.warning {
+    background: linear-gradient(135deg, #ffc107, #f39c12);
+    color: white;
+}
+
+/* Modal styles */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #DAA520;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments for Tailwind */
+@media (max-width: 768px) {
+    #nav-menu {
+        display: none;
+    }
+    
+    #nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 4rem;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        padding: 2rem 0;
+        gap: 1rem;
+        z-index: 40;
+    }
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced focus states for accessibility */
+button:focus,
+input:focus,
+textarea:focus,
+a:focus {
+    outline: 2px solid #DAA520;
+    outline-offset: 2px;
+}
+
+/* Category filter animations */
+.category-card.active-category {
+    background: linear-gradient(135deg, #DAA520, #FFD700) !important;
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(218, 165, 32, 0.3);
+}
+
+/* Modal animations */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-enter {
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+/* Custom order form styles */
+.size-card:hover,
+.flavor-card:hover,
+.delivery-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Cart badge pulse animation */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.cart-badge {
+    animation: pulse 2s infinite;
+}
+
+/* Print styles */
+@media print {
+    .fixed,
+    .sticky,
+    button,
+    nav {
+        display: none !important;
+    }
+}

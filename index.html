@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kek Afrina - Premium Cake Creation</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/img/Afrina'sfavicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Search Data - Temporarily disabled -->
+    <!-- <script src="js/search-data.js"></script> -->
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'playfair': ['Playfair Display', 'serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'curly': ['Dancing Script', 'Brush Script MT', 'cursive'],
+                    },
+                    colors: {
+                        'brown': {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            200: '#eaddd7',
+                            300: '#e0cec7',
+                            400: '#d2bab0',
+                            500: '#bfa094',
+                            600: '#a18072',
+                            700: '#977669',
+                            800: '#8B4513',
+                            900: '#723a0f',
+                        },
+                        'gold': {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#DAA520',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#FFD700',
+                        },
+                        'cream': '#FFF8DC',
+                        'light-brown': '#F5F5DC',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease forwards',
+                        'ripple': 'ripple 0.6s linear',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        ripple: {
+                            'to': {
+                                transform: 'scale(4)',
+                                opacity: '0'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS for additional styling -->
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+    <!-- Loader Animation -->
+    <div id="loader" class="fixed inset-0 bg-gradient-to-br from-yellow-50 to-orange-100 z-[9999] flex items-center justify-center transition-opacity duration-500">
+        <div class="text-center">
+            <!-- Animated Cake Icon -->
+            <div class="relative mb-6">
+                <div class="w-20 h-20 mx-auto relative">
+                    <!-- Cake Base -->
+                    <div class="absolute bottom-0 w-full h-8 bg-amber-600 rounded-lg animate-pulse"></div>
+                    <!-- Cake Middle -->
+                    <div class="absolute bottom-6 w-16 h-6 bg-amber-700 rounded-lg mx-auto left-2 animate-pulse" style="animation-delay: 0.2s;"></div>
+                    <!-- Cake Top -->
+                    <div class="absolute bottom-10 w-12 h-4 bg-amber-800 rounded-lg mx-auto left-4 animate-pulse" style="animation-delay: 0.4s;"></div>
+                    <!-- Candle -->
+                    <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-1 h-6 bg-yellow-400 rounded-full animate-bounce"></div>
+                    <!-- Flame -->
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-3 bg-orange-400 rounded-full animate-pulse flame-flicker"></div>
+                </div>
+            </div>
+            
+            <!-- Loading Text -->
+            <div class="space-y-2">
+                <h2 class="font-curly text-4xl font-bold bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent animate-bounce">Kek Afrina</h2>
+                <p class="font-inter text-sm text-amber-700 animate-fade-in" style="animation-delay: 0.5s;">Preparing something sweet...</p>
+                
+                <!-- Loading Dots -->
+                <div class="flex justify-center space-x-1 mt-4">
+                    <div class="w-2 h-2 bg-amber-600 rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+                    <div class="w-2 h-2 bg-amber-600 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                    <div class="w-2 h-2 bg-amber-600 rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 transition-all duration-300 shadow-lg" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300 group">
+                        <img src="img/Afrina'sfavicon.png" alt="Kek Afrina Logo" class="w-12 h-12 rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                        <span class="font-curly text-4xl bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent hover:from-yellow-400 hover:via-amber-500 hover:to-yellow-600 transition-all duration-300 group-hover:scale-105">Kek Afrina</span>
+                    </a>
+                </div>
+                
+                <ul class="hidden md:flex space-x-8" id="desktop-nav">
+                    <li>
+                        <a href="#home" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Home
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="catalogue.html" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Catalogue
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#top-sellers" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Best Sellers
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="about.html" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            About Us
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contact.html" class="nav-link font-inter font-medium text-gray-700 hover:text-gold-500 transition-all duration-300 relative group">
+                            Contact Us
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-search text-xl text-gray-700 hover:text-yellow-600 cursor-pointer transition-all duration-300 hover:scale-110" id="search-icon"></i>
+                    <a href="checkout.html">
+                        <i class="fas fa-shopping-cart text-xl text-gray-700 hover:text-gold-500 cursor-pointer transition-all duration-300 hover:scale-110 relative" id="cart-icon"></i>
+                    </a>
+                    <div class="md:hidden flex flex-col cursor-pointer" id="hamburger">
+                        <span class="w-6 h-0.5 bg-gray-700 mb-1 transition-all duration-300"></span>
+                        <span class="w-6 h-0.5 bg-gray-700 mb-1 transition-all duration-300"></span>
+                        <span class="w-6 h-0.5 bg-gray-700 transition-all duration-300"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-nav" class="md:hidden bg-white/98 backdrop-blur-md border-t border-brown-200 hidden">
+            <div class="px-4 py-4 space-y-4">
+                <a href="#home" class="nav-link block text-gold-600 font-semibold">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+                <a href="catalogue.html" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-th-large mr-2"></i>Catalogue
+                </a>
+                <a href="#top-sellers" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-star mr-2"></i>Best Sellers
+                </a>
+                <a href="about.html" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-info-circle mr-2"></i>About Us
+                </a>
+                <a href="contact.html" class="nav-link block text-brown-700 hover:text-gold-600 font-medium transition-colors duration-300">
+                    <i class="fas fa-envelope mr-2"></i>Contact Us
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enhanced Full-Width Hero Section -->
+    <section id="home" class="relative min-h-screen w-full overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-amber-900/70 via-amber-800/50 to-transparent z-10"></div>
+        <div 
+            class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style="background-image: url('/img/DSC09485.jpg');"
+        ></div>
+        
+        <!-- Content Container -->
+        <div class="relative z-20 min-h-screen flex items-center">
+            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Text Content -->
+                    <div class="space-y-8 pt-16" data-aos="fade-right" data-aos-duration="1000">
+                        <!-- Brand Badge -->
+                        <div class="inline-flex items-center bg-white/20 backdrop-blur-md rounded-full px-6 py-2 mb-4" data-aos="fade-down" data-aos-delay="200">
+                            <i class="fas fa-birthday-cake text-yellow-300 mr-3"></i>
+                            <span class="font-inter text-sm font-medium text-white tracking-wider">PREMIUM CAKE SPECIALIST</span>
+                        </div>
+                        
+                        <!-- Main Heading -->
+                        <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight drop-shadow-2xl">
+                            SEDAP<br>
+                            <span class="text-yellow-300">MEMIKAT</span>
+                        </h1>
+                        
+                        <!-- Description -->
+                        <p class="font-inter text-xl md:text-2xl text-white/90 leading-relaxed max-w-2xl drop-shadow-lg">
+                            Menjadi pilihan utama untuk kek berkualiti!<br>
+                            Luahkan kreativiti dan kongsi kemanisan<br>
+                            dengan orang tersayang melalui<br>
+                            <span class="font-semibold text-yellow-300">produk berkualiti kami.</span>
+                        </p>
+                        
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                            <a href="catalogue.html">
+                                <button class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-amber-900 px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl uppercase tracking-wider min-w-[200px] group">
+                                    <i class="fas fa-shopping-cart mr-3 group-hover:animate-bounce"></i>
+                                    TEMPAH SEKARANG
+                                </button>
+                            </a>
+                            <a href="#top-sellers">
+                                <button class="bg-white/20 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white hover:text-amber-900 px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl uppercase tracking-wider min-w-[200px]">
+                                    <i class="fas fa-star mr-3"></i>
+                                    LIHAT GALERI
+                                </button>
+                            </a>
+                        </div>
+                        
+                        <!-- Trust Indicators -->
+                        <div class="flex items-center space-x-8 pt-8" data-aos="fade-up" data-aos-delay="600">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-yellow-300">500+</div>
+                                <div class="text-sm text-white/80">Pelanggan Gembira</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-yellow-300">50+</div>
+                                <div class="text-sm text-white/80">Reka Bentuk Kek</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-yellow-300">5★</div>
+                                <div class="text-sm text-white/80">Penilaian</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Cake Showcase -->
+                    <div class="relative lg:flex hidden items-center justify-center" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="400">
+                        <!-- Decorative Frame -->
+                        <div class="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl transform rotate-3 scale-105"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-amber-500/20 rounded-3xl transform -rotate-2"></div>
+                        
+                        <!-- Secondary Cake Image -->
+                        <div class="relative bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-500">
+                            <img src="/img/Anas.jpg" alt="Featured Premium Cake" class="w-80 h-80 object-cover rounded-2xl shadow-xl">
+                            
+                            <!-- Floating Price Tag -->
+                            <div class="absolute -top-4 -right-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-amber-900 px-6 py-3 rounded-full font-bold text-lg shadow-lg transform rotate-12 animate-bounce">
+                                From RM80
+                            </div>
+                            
+                            <!-- Quality Badge -->
+                            <div class="absolute -bottom-4 -left-4 bg-white text-amber-900 px-4 py-2 rounded-full font-semibold text-sm shadow-lg">
+                                ✨ Premium Quality
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Floating Elements -->
+        <div class="absolute top-1/4 right-1/12 text-4xl text-yellow-300/60 animate-float z-30" data-aos="fade-up" data-aos-delay="800" style="animation-delay: 0s;">
+            <i class="fas fa-birthday-cake drop-shadow-lg"></i>
+        </div>
+        <div class="absolute top-3/5 left-1/12 text-4xl text-yellow-300/60 animate-float z-30" data-aos="fade-up" data-aos-delay="1000" style="animation-delay: 1s;">
+            <i class="fas fa-heart drop-shadow-lg"></i>
+        </div>
+        <div class="absolute bottom-1/4 right-1/5 text-4xl text-yellow-300/60 animate-float z-30" data-aos="fade-up" data-aos-delay="1200" style="animation-delay: 2s;">
+            <i class="fas fa-star drop-shadow-lg"></i>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30" data-aos="fade-up" data-aos-delay="1400">
+            <a href="#top-sellers" class="flex flex-col items-center text-white/80 hover:text-white transition-colors duration-300 group">
+                <span class="text-sm font-medium mb-2 tracking-wider">SCROLL DOWN</span>
+                <i class="fas fa-chevron-down text-xl animate-bounce group-hover:animate-pulse"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Top Sellers Section -->
+    <section id="top-sellers" class="py-20 bg-gradient-to-br from-yellow-50 to-orange-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-brown-800 mb-6">
+                    Kek Terlaris Kami
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 mx-auto mb-8 rounded"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Discover our most loved cakes, handcrafted with premium ingredients and loved by customers. Each cake tells a story of sweetness and celebration.
+                </p>
+            </div>
+            
+            <!-- Top Sellers Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <style>
+                .bestseller-cards-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 2rem;
+                    align-items: stretch;
+                }
+                .bestseller-cards-grid > div {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
+                </style>
+                <!-- Bestseller #1 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=300&fit=crop&crop=center" alt="Chocolate Delight Cake" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                        <div class="absolute top-4 left-4 bg-gradient-to-r from-gold-500 to-gold-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            #1 Bestseller
+                        </div>
+                        <div class="absolute bottom-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            ⭐ 4.9
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-3">Chocolate Delight</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow">Rich, moist chocolate cake with premium Belgian cocoa and silky ganache. A chocolate lover's dream come true.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-2xl font-bold text-green-500">RM65</div>
+                            <div class="text-xs text-gray-500">800+ orders</div>
+                        </div>
+                        <a href="catalogue.html" class="block w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 text-center mt-auto">
+                            Order Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bestseller #2 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop&crop=center" alt="Vanilla Dream Cake" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                        <div class="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            #2 Bestseller
+                        </div>
+                        <div class="absolute bottom-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            ⭐ 4.8
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-3">Vanilla Dream</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow">Classic vanilla sponge with Madagascar vanilla beans and buttercream frosting. Timeless elegance in every bite.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-2xl font-bold text-green-500">RM55</div>
+                            <div class="text-xs text-gray-500">650+ orders</div>
+                        </div>
+                        <a href="catalogue.html" class="block w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 text-center mt-auto">
+                            Order Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bestseller #3 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=400&h=300&fit=crop&crop=center" alt="Red Velvet Supreme" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                        <div class="absolute top-4 left-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            #3 Bestseller
+                        </div>
+                        <div class="absolute bottom-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            ⭐ 4.8
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-3">Red Velvet Supreme</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow">Luxurious red velvet cake with cream cheese frosting and delicate cocoa notes. A perfect balance of flavors.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-2xl font-bold text-green-500">RM70</div>
+                            <div class="text-xs text-gray-500">520+ orders</div>
+                        </div>
+                        <a href="catalogue.html" class="block w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 text-center mt-auto">
+                            Order Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Customer Favorite #1 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop&crop=center" alt="Strawberry Bliss" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                        <div class="absolute top-4 left-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Customer Favorite
+                        </div>
+                        <div class="absolute bottom-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            ⭐ 4.7
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-3">Strawberry Bliss</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow">Fresh strawberry cake with real fruit layers and whipped cream. Light, fruity, and absolutely delicious.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-2xl font-bold text-green-500">RM60</div>
+                            <div class="text-xs text-gray-500">450+ orders</div>
+                        </div>
+                        <a href="catalogue.html" class="block w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 text-center mt-auto">
+                            Order Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Special Recommendation -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=400&h=300&fit=crop&crop=center" alt="Lemon Citrus Burst" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                        <div class="absolute top-4 left-4 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Chef's Special
+                        </div>
+                        <div class="absolute bottom-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            ⭐ 4.6
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-3">Lemon Citrus Burst</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow">Zesty lemon cake with citrus glaze and candied lemon peel. Refreshingly tangy and perfectly balanced.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-2xl font-bold text-green-500">RM58</div>
+                            <div class="text-xs text-gray-500">380+ orders</div>
+                        </div>
+                        <a href="catalogue.html" class="block w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 text-center mt-auto">
+                            Order Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Premium Choice -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=300&fit=crop&crop=center" alt="Tiramisu Elegance" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300">
+                        <div class="absolute top-4 left-4 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Premium Choice
+                        </div>
+                        <div class="absolute bottom-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            ⭐ 4.9
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-3">Tiramisu Elegance</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-grow">Italian-inspired tiramisu cake with coffee-soaked layers and mascarpone cream. Sophisticated and indulgent.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-2xl font-bold text-green-500">RM85</div>
+                            <div class="text-xs text-gray-500">320+ orders</div>
+                        </div>
+                        <a href="catalogue.html" class="block w-full bg-gradient-to-r from-brown-800 to-brown-700 hover:from-gold-500 hover:to-gold-900 text-white hover:text-brown-800 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 text-center mt-auto">
+                            Order Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Browse Full Catalogue CTA -->
+            <div class="text-center" data-aos="fade-up" data-aos-delay="700">
+                <div class="bg-gradient-to-r from-brown-800 to-gold-600 rounded-3xl p-8 text-white mb-8">
+                    <h3 class="font-playfair text-3xl font-bold mb-4">Ingin Melihat Lebih Banyak?</h3>
+                    <p class="text-lg mb-6 opacity-90">Layari katalog lengkap kami dengan lebih 50+ varieti kek, kek perkahwinan, kek majlis, dan reka bentuk tempahan!</p>
+                    <a href="catalogue.html" class="inline-flex items-center bg-white text-brown-800 hover:bg-gold-100 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        <i class="fas fa-th-large mr-3"></i>
+                        Lihat Katalog Penuh
+                        <i class="fas fa-arrow-right ml-3"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- Services Section -->
+    <section id="shop" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center text-brown-800 mb-4" data-aos="fade-up">
+                Perkhidmatan Kami
+            </h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-gold-500 to-gold-900 mx-auto mb-16 rounded"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="group text-center p-8 bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3" data-aos="flip-left" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:from-brown-800 group-hover:to-brown-700 rounded-full flex items-center justify-center mx-auto mb-6 transition-all duration-300 group-hover:scale-110">
+                        <i class="fas fa-birthday-cake text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-4">Kek Tempahan</h3>
+                    <p class="text-gray-600 leading-relaxed">Kek yang direka khas mengikut keutamaan dan tema pilihan anda.</p>
+                </div>
+                
+                <div class="group text-center p-8 bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3" data-aos="flip-left" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:from-brown-800 group-hover:to-brown-700 rounded-full flex items-center justify-center mx-auto mb-6 transition-all duration-300 group-hover:scale-110">
+                        <i class="fas fa-truck text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-4">Penghantaran Pantas</h3>
+                    <p class="text-gray-600 leading-relaxed">Penghantaran yang cepat dan selamat untuk memastikan kek anda sampai segar dan tepat pada masa.</p>
+                </div>
+                
+                <div class="group text-center p-8 bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3" data-aos="flip-left" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:from-brown-800 group-hover:to-brown-700 rounded-full flex items-center justify-center mx-auto mb-6 transition-all duration-300 group-hover:scale-110">
+                        <i class="fas fa-heart text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-4">Kek Perkahwinan</h3>
+                    <p class="text-gray-600 leading-relaxed">Kek perkahwinan yang elegan untuk menjadikan hari istimewa anda lebih berkesan.</p>
+                </div>
+                
+                <div class="group text-center p-8 bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3" data-aos="flip-left" data-aos-delay="400">
+                    <div class="w-20 h-20 bg-gradient-to-r from-gold-500 to-gold-900 group-hover:from-brown-800 group-hover:to-brown-700 rounded-full flex items-center justify-center mx-auto mb-6 transition-all duration-300 group-hover:scale-110">
+                        <i class="fas fa-users text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-semibold text-brown-800 mb-4">Pesanan Korporat</h3>
+                    <p class="text-gray-600 leading-relaxed">Pesanan pukal untuk acara korporat, parti, dan majlis-majlis istimewa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div class="text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start space-x-4 mb-6">
+                        <a href="index.html" class="flex items-center space-x-4 hover:opacity-80 transition-opacity duration-300 group">
+                            <img src="img/Afrina'sfavicon.png" alt="Kek Afrina Logo" class="w-16 h-16 rounded-full shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                            <div>
+                                <h3 class="font-curly text-4xl bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 bg-clip-text text-transparent group-hover:scale-105 transition-all duration-300">Kek Afrina</h3>
+                                <p class="text-gray-400 italic text-sm font-inter tracking-wider">SEDAP MEMIKAT</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="font-playfair text-xl font-semibold text-gold-500 mb-4">Pautan Pantas</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Utama</a></li>
+                        <li><a href="#catalogue" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Katalog</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Tentang Kami</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-gold-500 transition-colors duration-300">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="font-playfair text-xl font-semibold text-gold-500 mb-4">Ikuti Kami</h4>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-facebook-f text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-instagram text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-twitter text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gold-500 hover:bg-gold-600 rounded-full flex items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                            <i class="fab fa-youtube text-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 Kek Afrina. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-gold-500 to-gold-900 hover:from-brown-800 hover:to-brown-700 text-white rounded-full opacity-0 invisible transition-all duration-300 hover:-translate-y-1 z-50" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
