@@ -108,7 +108,7 @@ Tip: Keep `z-index` lower than your navbar/hero overlays.
 ## 🧪 Visuals
 
 
-![Hero preview](img/DSC09485.jpg)
+![Hero preview](img/Hero.jpg)
 ![Featured cake](img/Anas.jpg)
 
 
